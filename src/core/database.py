@@ -35,7 +35,7 @@ def get_sqlite_uri() -> str:
 def get_db_instance() -> SQLDatabase:
     DB_URI = get_sqlite_uri()
     # db_path = "sqlite:///../data/data_query_assistant.db"
-    db = SQLDatabase.from_uri(DB_URI)
+    db = SQLDatabase.from_uri(database_uri=DB_URI)
     return db
 
 
