@@ -50,7 +50,7 @@ text2sql/
 
 ### 2. Clone the Repository
 ```cmd
-git clone <your-repo-url>
+git clone https://github.com/Suyash-Bhutara/text2sql.git
 cd text2sql
 ```
 
