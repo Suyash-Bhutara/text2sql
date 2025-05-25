@@ -8,6 +8,7 @@ dependencies = [
     "db-sqlite3>=0.0.1",
     "ipykernel>=6.29.5",
     "langchain>=0.3.25",
+    "langchain-community>=0.3.24",
     "langchain-google-genai>=2.1.4",
     "numpy>=2.2.6",
     "pandas>=2.2.3",
