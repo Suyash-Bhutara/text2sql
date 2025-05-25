@@ -162,11 +162,6 @@ python main.py run_cli
 
 ---
 
-## License
-Add your license here.
-
----
-
 ## Credits
 - Built with [LangChain](https://python.langchain.com/), [Streamlit](https://streamlit.io/), and [Google Gemini](https://aistudio.google.com/).
 
