@@ -33,6 +33,12 @@ wheels = [
 ]
 
 [[package]]
+name = "antiorm"
+version = "1.2.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/0b/f8/71baa4824d9666c1be51d117119579a97f461ddbded48b2e01a6ad0554b5/antiorm-1.2.1.tar.gz", hash = "sha256:96eb1841ce5163db4cf1dc13f4499ec2d7cffc190cf724b78ffdd3e6b7c4ff93", size = 171953, upload-time = "2016-06-28T22:52:03.354Z" }
+
+[[package]]
 name = "anyio"
 version = "4.9.0"
 source = { registry = "https://pypi.org/simple" }
@@ -200,6 +206,24 @@ sdist = { url = "https://files.pythonhosted.org/packages/e9/a8/fb783cb0abe2b5fde
 wheels = [
     { url = "https://files.pythonhosted.org/packages/e6/75/49e5bfe642f71f272236b5b2d2691cf915a7283cc0ceda56357b61daa538/comm-0.2.2-py3-none-any.whl", hash = "sha256:e6fb86cb70ff661ee8c9c14e7d36d6de3b4066f1441be4063df9c5009f0a64d3", size = 7180, upload-time = "2024-03-12T16:53:39.226Z" },
 ]
+
+[[package]]
+name = "db"
+version = "0.1.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "antiorm" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a9/22/f65d64c83e63790b3273c6adb3bff338ad594f46d84b41bd1f94593b40a6/db-0.1.1.tar.gz", hash = "sha256:980e772f15c1161d3b287ffec4f144e40961b0b3e6d5102809577870bf6c5808", size = 3350, upload-time = "2014-12-13T05:13:58.159Z" }
+
+[[package]]
+name = "db-sqlite3"
+version = "0.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "db" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ff/00/e1f3d7bf1e0bff7c0574c0d5535c041e139d4ce43db196147e4c62f52ed5/db-sqlite3-0.0.1.tar.gz", hash = "sha256:4dd410aa28a2c5b66de477f9dc62f523133217dd31c7ed7eb085214bea148db9", size = 1390, upload-time = "2013-06-10T06:13:49.316Z" }
 
 [[package]]
 name = "debugpy"
@@ -1492,6 +1516,7 @@ name = "text2sql"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "db-sqlite3" },
     { name = "ipykernel" },
     { name = "langchain" },
     { name = "langchain-google-genai" },
@@ -1503,6 +1528,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "db-sqlite3", specifier = ">=0.0.1" },
     { name = "ipykernel", specifier = ">=6.29.5" },
     { name = "langchain", specifier = ">=0.3.25" },
     { name = "langchain-google-genai", specifier = ">=2.1.4" },
