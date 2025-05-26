@@ -9,7 +9,7 @@ A conversational AI assistant that translates natural language questions into SQ
 - **Conversational Memory**: Maintains chat history for context-aware follow-up questions.
 - **Streamlit Web UI**: Interactive chat interface for data exploration.
 - **CLI Mode**: Terminal-based chat for quick access.
-- **Customizable Database**: Ships with a sample SQLite database and setup script.
+- **Customizable Database**: A sample SQLite database and setup script.
 
 ---
 
@@ -36,7 +36,9 @@ text2sql/
 │   │   └── setup_database.py    # DB creation & population
 │   └── ui/
 │       └── __init__.py
-└── tests/                   # (Add your tests here)
+└── tests/
+        ├── sample_questions.txt
+        └── test_app_logic.py
 ```
 
 ---
