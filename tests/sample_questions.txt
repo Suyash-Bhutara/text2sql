@@ -1,0 +1,65 @@
+## Single-Turn Questions
+## Basic Retrieval:
+"Show me all user activity from yesterday."
+"List all loyalty categories."
+"How many games were played in total on May 15, 2025?" (Assuming setup_database.py generates data around the current date)
+"What are the user IDs of players who made a deposit today?"
+"Show me the total revenue for user '[insert a known test userid]'."
+
+## Filtering & Sorting:
+"Find users who had more than 100 in total revenue on May 20, 2025."
+"List the top 5 users by total winnings in the last 7 days."
+"Show user activity for 'Gold' loyalty category members, ordered by date."
+"Which users made more than 3 deposits yesterday?"
+"Display users who lost more games than they won in the last week."
+
+## Aggregation:
+"What is the total revenue generated across all users in the last month?"
+"What is the average number of games played per user yesterday?"
+"How many unique users made a deposit in the last 3 days?"
+"What's the total bonus amount given out to 'Platinum' users last week?"
+"Calculate the sum of wagers for all games played on May 10, 2025."
+
+
+## Combination/Slightly More Complex:
+"List users in the 'Diamond' loyalty category who had total withdrawals greater than $50 on any single day last week." 
+"Show the total revenue, total withdrawals, and total bonus for users who played more than 20 games yesterday." 
+"What is the average wager amount for users who won at least 5 games on May 12, 2025?" 
+"List users who made a deposit and also had a total revenue greater than $200 on the same day in the last 10 days." 
+"Which users had a total_winnings to wager ratio greater than 2 yesterday?" 
+
+## Multi-Turn / Follow-Up Questions
+## Scenario 1: Exploring User Activity
+User: "Show me the top 3 users by total revenue for May 23, 2025."
+AI: (Displays results)
+User: "For these users, what was their total number of games played on that day?"
+AI: (Displays results)
+User: "Now, show me their deposit counts for the same day."
+AI: (Displays results)
+User: "Which one of them had the highest number of withdrawals last week?"
+
+## Scenario 2: Investigating Game Performance
+
+User: "List users who played more than 30 games yesterday." 
+AI: (Displays results)
+User: "Of those, who had total winnings greater than $100?" 
+AI: (Displays results)
+User: "What was their average wager amount?"
+AI: (Displays results)
+User: "And how many cash games did they play?" 
+
+## Scenario 3: Loyalty Category Analysis
+User: "How many users are in the 'Gold' loyalty category as of today?" 
+AI: (Displays count)
+User: "What was their average total revenue last month?"
+AI: (Displays average)
+User: "Compare that to 'Silver' members."
+AI: (Displays average for Silver members or a comparison)
+User: "Which 'Gold' user had the most game wins last week?"
+
+## Scenario 4: Date-based Exploration
+User: "What was the total deposit amount across all users on May 1st, 2025?" 
+AI: (Displays total deposit)
+User: "And on May 2nd, 2025?"
+AI: (Displays total deposit for the new date)
+User: "Which day in the first week of May had the highest total revenue?" 
