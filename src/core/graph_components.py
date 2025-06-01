@@ -24,12 +24,14 @@ class State(TypedDict):
     # Optional fields for handling clarification
     clarification_needed: bool
     clarification_question: str
-    error_message: str | None # To store the last error message from query execution
-    retry_count: int         # To count the number of retries
+    error_message: str | None  # To store the last error message from query execution
+    retry_count: int  # To count the number of retries
+
 
 # --- TypedDict for query output structure ---
 class QueryOutput(TypedDict):
     """Generated SQL query."""
+
     query: Annotated[str, ..., "Syntactically valid SQL query."]
 
 
@@ -40,19 +42,20 @@ def write_query(state: State) -> Dict[str, Any]:
     print("--- Node: write_query ---")
     question = state["question"]
     chat_history_str = format_chat_history_for_prompt(state.get("chat_history", []))
-    error_message = state.get("error_message") # Get previous error message
+    error_message = state.get("error_message")
     retry_count = state.get("retry_count", 0)
 
     current_date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
     input_question = question
-    if error_message and retry_count > 0: # Add error context only if there was a previous error
+    if (
+        error_message and retry_count > 0
+    ):  # Add error context only if there was a previous error
         input_question = (
             f"Previous attempt to answer the question: '{question}' failed with the following SQL error: '{error_message}'. "
             f"Please analyze the error and the schema to generate a corrected SQL query. This is attempt {retry_count + 1}."
         )
         print(f"Retrying query generation with error context: {error_message}")
-
 
     prompt_input = {
         "dialect": db_instance.dialect,
@@ -79,16 +82,24 @@ def write_query(state: State) -> Dict[str, Any]:
                 "query": generated_query,
                 "clarification_needed": True,
                 "clarification_question": clarification_question,
-                "error_message": None, # Reset error on clarification
+                "error_message": None,  # Reset error on clarification
             }
         # Reset error message on successful query generation
-        return {"query": generated_query, "clarification_needed": False, "error_message": None}
+        return {
+            "query": generated_query,
+            "clarification_needed": False,
+            "error_message": None,
+        }
     except Exception as e:
         print(f"Error in write_query: {e}")
-        return {"query": f"ERROR_GENERATING_QUERY: {e}", "clarification_needed": False, "error_message": str(e)}
+        return {
+            "query": f"ERROR_GENERATING_QUERY: {e}",
+            "clarification_needed": False,
+            "error_message": str(e),
+        }
 
 
-def execute_query(state: State) -> Dict[str, Any]: # Return type changed to Any for retry_count
+def execute_query(state: State) -> Dict[str, Any]:
     """
     Executes the generated SQL query. If execution fails, it updates the error message
     and increments the retry count.
@@ -98,14 +109,18 @@ def execute_query(state: State) -> Dict[str, Any]: # Return type changed to Any 
     retry_count = state.get("retry_count", 0)
 
     if state.get("clarification_needed") or "ERROR_GENERATING_QUERY:" in query:
-        print("Skipping query execution due to clarification needed or query generation error.")
+        print(
+            "Skipping query execution due to clarification needed or query generation error."
+        )
         return {
             "result": (
                 "Query execution skipped due to clarification."
                 if not "ERROR_GENERATING_QUERY:" in query
-                else query # Pass the generation error along
+                else query
             ),
-            "error_message": state.get("error_message"), # Preserve existing error message if any
+            "error_message": state.get(
+                "error_message"
+            ),  # Preserve existing error message if any
             "retry_count": retry_count,
         }
 
@@ -133,15 +148,23 @@ def generate_answer(state: State) -> Dict[str, str]:
     print("--- Node: generate_answer ---")
     question = state["question"]
     query = state["query"]
-    result = state["result"] # This will contain data or an error message from execute_query
+    result = state["result"]
     chat_history = state.get("chat_history", [])
-    error_message = state.get("error_message") # Get error from state
+    error_message = state.get("error_message")
     retry_count = state.get("retry_count", 0)
 
     # Check if max retries were hit and there's still an execution error
-    if retry_count >= DEFAULT_MAX_RETRIES_FOR_QUERY_EXECUTION and error_message and "ERROR_EXECUTING_QUERY:" in result:
-        print(f"Max retries ({DEFAULT_MAX_RETRIES_FOR_QUERY_EXECUTION}) reached. Returning generic error message.")
-        return {"answer": "Could not process your request after multiple attempts. Please try a different variant or simplify your question."}
+    if (
+        retry_count >= DEFAULT_MAX_RETRIES_FOR_QUERY_EXECUTION
+        and error_message
+        and "ERROR_EXECUTING_QUERY:" in result
+    ):
+        print(
+            f"Max retries ({DEFAULT_MAX_RETRIES_FOR_QUERY_EXECUTION}) reached. Returning generic error message."
+        )
+        return {
+            "answer": "Could not process your request after multiple attempts. Please try a different variant or simplify your question."
+        }
 
     if state.get("clarification_needed"):
         clarification_question = state.get(
@@ -150,7 +173,7 @@ def generate_answer(state: State) -> Dict[str, str]:
         print(f"Returning clarification request: {clarification_question}")
         return {"answer": clarification_question}
 
-    if "ERROR_GENERATING_QUERY:" in query: # This is an error from write_query itself
+    if "ERROR_GENERATING_QUERY:" in query:  # This is an error from write_query itself
         gen_error_message = query.replace("ERROR_GENERATING_QUERY:", "").strip()
         answer = f"I encountered an issue trying to understand your request: {gen_error_message}. Could you please rephrase?"
         print(f"Answer due to query generation error: {answer}")
@@ -161,7 +184,7 @@ def generate_answer(state: State) -> Dict[str, str]:
         "chat_history_str": chat_history_str,
         "question": question,
         "query": query,
-        "result": result, # This result can contain "ERROR_EXECUTING_QUERY:..."
+        "result": result,  # This result can contain "ERROR_EXECUTING_QUERY:..."
     }
 
     formatted_prompt_messages = answer_generation_prompt.invoke(prompt_input)
