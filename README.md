@@ -57,20 +57,37 @@ cd text2sql
 ```
 
 ### 3. Set Up a Virtual Environment (Recommended)
+
+**Windows (cmd.exe)**:
 ```cmd
 python -m venv .venv
 .venv\Scripts\activate
 ```
 
+**Linux/macOS**:
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
 ### 4. Install Dependencies
+**Windows**:
 ```cmd
 pip install -U pip
 pip install -r requirements.txt
 # OR, if using pyproject.toml/uv:
+pip install uv
 uv pip install
 ```
 
-If you don't have `uv`, install with `pip install uv`.
+**Linux/macOS**:
+```bash
+pip install -U pip
+pip install -r requirements.txt
+# OR, if using pyproject.toml/uv:
+pip install uv
+uv pip install
+```
 
 ### 5. Configure Environment Variables
 Create a `.env` file in the project root:
@@ -90,23 +107,44 @@ All main actions are managed via `main.py` using command-line arguments:
 
 ### 1. Set Up the Database
 If `data/data_query_assistant.db` does not exist, create and populate it:
+
+**Windows**:
 ```cmd
 python main.py setup_db
+```
+
+**Linux/macOS**:
+```bash
+python3 main.py setup_db
 ```
 This will generate a sample database with synthetic data for testing.
 
 ### 2. Launch the Streamlit Web App
 Start the chat UI in your browser:
+
+**Windows**:
 ```cmd
 python main.py run_app
+```
+
+**Linux/macOS**:
+```bash
+python3 main.py run_app
 ```
 - Interact with the assistant in a chat format.
 - View generated SQL queries and results.
 
 ### 3. Launch the Command-Line Interface (CLI)
 Start a terminal chat session:
+
+**Windows**:
 ```cmd
 python main.py run_cli
+```
+
+**Linux/macOS**:
+```bash
+python3 main.py run_cli
 ```
 - Type your questions and get answers directly in the terminal.
 - Type `exit` or `quit` to end the session.
