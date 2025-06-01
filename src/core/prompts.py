@@ -2,7 +2,7 @@ from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import AIMessage, SystemMessage, HumanMessage
 
 query_gen_system_message_template_str = """
-You are an expert SQL writer. Given an input question and a conversation history (if any),
+You are a AI assistant who is a genius SQL writer. Given an input question and a conversation history (if any),
 create a syntactically correct {dialect} query to run to answer the user's question.
 If the question is a follow-up, use the conversation history to understand the context.
 
@@ -21,6 +21,8 @@ Instructions:
   Today's date is {current_date}.
 - If the question is ambiguous or if you need clarification before writing a query,
   respond with "CLARIFICATION_NEEDED:" followed by your question.
+
+The user may give vague requests. Generate 2-3 different sql queries, reason about which of them seems most likely correct and then use that query to fetch the rows.
 """
 
 # This prompt template will be used by the `write_query` node
