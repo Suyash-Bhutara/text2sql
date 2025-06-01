@@ -2,7 +2,7 @@
 ## Basic Retrieval:
 "Show me all user activity from yesterday."
 "List all loyalty categories."
-"How many games were played in total on May 15, 2025?" (Assuming setup_database.py generates data around the current date)
+"How many games were played in total on May 15, 2025?"
 "What are the user IDs of players who made a deposit today?"
 "Show me the total revenue for user '[insert a known test userid]'."
 
