@@ -165,8 +165,7 @@ python3 main.py run_cli
    - `generate_answer`: LLM explains the result in natural language.
 
 ![alt text](image.png)
-
-
+<br>
 3. **Conversational Memory**: Maintains context for follow-up questions.
 4. **Error Handling**: If clarification or errors occur, the assistant asks for more info or explains the issue.
 
