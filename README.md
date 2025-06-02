@@ -163,6 +163,8 @@ python3 main.py run_cli
    - `write_query`: LLM generates SQL query from question & chat history.
    - `execute_query`: Runs SQL on the SQLite DB.
    - `generate_answer`: LLM explains the result in natural language.
+
+![alt text](image.png)
 3. **Conversational Memory**: Maintains context for follow-up questions.
 4. **Error Handling**: If clarification or errors occur, the assistant asks for more info or explains the issue.
 
